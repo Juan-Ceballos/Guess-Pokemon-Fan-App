@@ -1,0 +1,23 @@
+{
+  "name": "guess-pokemon-fan-app",
+  "version": "1.0.0",
+  "description": "A fun Pokemon trivia game app based on the \"Whos That Pokemon?\" segment of the Pokemon show currently owned by Nintendo, Creatures, and Game Freak.",
+  "main": "index.js",
+  "scripts": {
+    "test": "vitest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Juan-Ceballos/Guess-Pokemon-Fan-App.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Juan-Ceballos/Guess-Pokemon-Fan-App/issues"
+  },
+  "homepage": "https://github.com/Juan-Ceballos/Guess-Pokemon-Fan-App#readme",
+  "devDependencies": {
+    "vitest": "^3.0.5"
+  }
+}
