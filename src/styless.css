@@ -18,6 +18,8 @@
 
 .game-space div {
     display: inline-block;
+    vertical-align: middle;
+    margin-left: 100px;
 }
 
 .pokeImage {
@@ -29,4 +31,5 @@
     border: 1px solid black;
     width: 20px;
     height: 20px;
+    margin: 10px;
 }
