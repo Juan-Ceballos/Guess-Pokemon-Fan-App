@@ -1,9 +1,15 @@
 .intro {
     background-color: red;
     text-align: center;
+    border: 2px solid black;
+    margin: 0px;
 }
+
 .intro h1  {
     font-family: fantasy;
     color: yellow;
+}
 
+.pokeImage {
+    border: 2px, solid, black;
 }
