@@ -1,8 +1,10 @@
+import { pokemons } from "../data/pokemons.js"
+
 console.log("hello")
-const h1 = document.querySelector("h1")
+let h1 = document.querySelector("h1")
 console.log(h1.innerText)
 
-const gameSpace = document.getElementById("result")
+let gameSpace = document.getElementById("result")
 console.log(gameSpace.innerText)
 
 let guessForm = document.querySelector("form")
@@ -25,5 +27,13 @@ function addFormEventListener() {
         }
     })
 }
+
+// function fetchPokemon() {
+
+// }
+
+// function comparePokemon(name) {
+
+// }
 
 addFormEventListener()
