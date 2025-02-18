@@ -26,11 +26,9 @@ function addFormEventListener() {
         if (event.key === "Enter") {
             event.preventDefault()
             let enteredText = inputField.value
-            let currPokemon = pokemons[count]
-            if (currPokemon.name === enteredText) {
+            if (pokemons[count].name === enteredText) {
                 // change image
-                pokeImage.src = currPokemon.img
-                count += 1
+                pokeImage.src = pokemons[count].img
                 score += 1
                 console.log("guess right")
             } else {
@@ -38,6 +36,10 @@ function addFormEventListener() {
                 // still reveal pokemon
                 console.log("guess wrong")    
             }
+            count += 1
+            setTimeout(() => {
+                pokeImage.src = pokemons[count].imgHidden
+            }, 3000)
         }
     })
 }
