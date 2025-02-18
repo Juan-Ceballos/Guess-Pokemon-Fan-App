@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guess-Pokemon-Fan-App</title>
     <link rel="stylesheet" href="styless.css">
-    <script src="app.js" defer></script>
+    <script type="module" src="app.js" defer></script>
     <script type="module" src="../data/pokemons.js"></script>
 </head>
 <body>
@@ -21,7 +21,10 @@
     </div>
     <div class="game-space">
         <div class="pokeImage">
-            <img src="../assets\caterpieHidden.jpg" alt="caterpie">
+            <img id="gameImage" src="../assets\charmenderHidden.jpg" alt="charmender"
+                width="200"
+                height="200"
+            >
         </div>
         <div class="guessForm">
             <form>
@@ -37,6 +40,9 @@
         </div>
         <div class="score">
             <p>0</p>
+        </div>
+        <div class = "button">
+            <button>Next</button>
         </div>
     </div>  
 </body>

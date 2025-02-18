@@ -2,7 +2,8 @@
   "name": "guess-pokemon-fan-app",
   "version": "1.0.0",
   "description": "A fun Pokemon trivia game app based on the \"Whos That Pokemon?\" segment of the Pokemon show currently owned by Nintendo, Creatures, and Game Freak.",
-  "main": "index.js",
+  "main": "index.html",
+  "type": "module",
   "scripts": {
     "test": "vitest"
   },
