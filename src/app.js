@@ -17,6 +17,7 @@ console.log(input)
 
 let count = 0
 let score = 0
+let gameLives = 3
 
 function addFormEventListener() {
     let guessForm = document.querySelector("form")
@@ -27,15 +28,19 @@ function addFormEventListener() {
             event.preventDefault()
             let enteredText = inputField.value
             if (pokemons[count].name === enteredText) {
-                // change image
-                pokeImage.src = pokemons[count].img
+                // change image  
                 score += 1
                 console.log("guess right")
             } else {
-                // lose a game life
-                // still reveal pokemon
-                console.log("guess wrong")    
+                if (gameLives === 0) {
+                    console.log("game over")
+                    return
+                } else {
+                    console.log("guess wrong")
+                    gameLives -= 1
+                }      
             }
+            pokeImage.src = pokemons[count].img
             count += 1
             setTimeout(() => {
                 pokeImage.src = pokemons[count].imgHidden
@@ -43,6 +48,10 @@ function addFormEventListener() {
         }
     })
 }
+
+function startRound(event) {
+
+} 
 
 // function comparePokemon(name) {
 
