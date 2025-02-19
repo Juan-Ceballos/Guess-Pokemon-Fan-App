@@ -23,6 +23,8 @@ resultText.hidden = true
 let lifeElements = document.getElementById("lives")
 let playAgainButton = document.querySelector("button")
 playAgainButton.disabled = true
+let scoreElement = document.querySelector(".score").firstElementChild
+console.log(scoreElement)
 
 
 function addFormEventListener() {
@@ -39,6 +41,7 @@ function addFormEventListener() {
                 console.log("guess right")
                 resultText.textContent = "Correct!"
                 resultText.hidden = false
+                scoreElement.innerText = String(score)
             } else {
                 if (gameLives === 0) {
                     lifeElements.children[gameLives].style.backgroundColor = 'gray'
@@ -59,6 +62,7 @@ function addFormEventListener() {
             setTimeout(() => {
                 pokeImage.src = pokemons[count].imgHidden
             }, 3000)
+            inputField.value = ""
         }
     })
 }
