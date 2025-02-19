@@ -17,7 +17,13 @@ console.log(input)
 
 let count = 0
 let score = 0
-let gameLives = 3
+let gameLives = 2
+let resultText = document.getElementById("result")
+resultText.hidden = true
+let lifeElements = document.getElementById("lives")
+let playAgainButton = document.querySelector("button")
+playAgainButton.disabled = true
+
 
 function addFormEventListener() {
     let guessForm = document.querySelector("form")
@@ -31,13 +37,21 @@ function addFormEventListener() {
                 // change image  
                 score += 1
                 console.log("guess right")
+                resultText.textContent = "Correct!"
+                resultText.hidden = false
             } else {
                 if (gameLives === 0) {
+                    lifeElements.children[gameLives].style.backgroundColor = 'gray'
                     console.log("game over")
+                    resultText.textContent = "Game Over!"
+                    resultText.hidden = false
                     return
                 } else {
                     console.log("guess wrong")
-                    gameLives -= 1
+                    resultText.textContent = "Wrong!"
+                    resultText.hidden = false
+                    lifeElements.children[gameLives].style.backgroundColor = 'gray'
+                    gameLives -= 1   
                 }      
             }
             pokeImage.src = pokemons[count].img
@@ -48,10 +62,6 @@ function addFormEventListener() {
         }
     })
 }
-
-function startRound(event) {
-
-} 
 
 // function comparePokemon(name) {
 
