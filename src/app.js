@@ -1,8 +1,8 @@
 import { pokemons } from "../data/pokemons.js"
 
-const REVEAL_TIMEOUT = 3000, INITIAL_LIVES = 2, INITIAL_COUNT = 0, INITIAL_SCORE = 0, COUNT_INCREMENT = 1, SCORE_INCREMENT = 1, LIFE_DECREMENT = 1, GAME_OVER_VALUE = 0
+const REVEAL_TIMEOUT = 3000, INITIAL_LIVES = 2, INITIAL_COUNT = 0, INITIAL_SCORE = 0, COUNT_INCREMENT = 1, SCORE_INCREMENT = 1, LIFE_DECREMENT = 1, GAME_OVER_LIVES = 0, GAME_OVER_COUNT = 9
 const SELECTOR_LIVES = "lives", SELECTOR_GAME_IMAGE = "gameImage", SELECTOR_FORM = "form", SELECTOR_SCORE = ".score", SELECTOR_RESULT = "result", SELECTOR_PLAY_AGAIN = "button"
-const CORRECT_MESSAGE = "Correct!", WRONG_MESSAGE = "Wrong!", GAME_OVER_MESSAGE = "Game Over!", EMPTY_STRING = "", ENTER_KEY = "Enter", SCORE_PREFIX = 'Score: ', LIFE_LOST_COLOR = "gray", KEY_DOWN_EVENT = "keydown"
+const CORRECT_MESSAGE = "Correct!", WRONG_MESSAGE = "Wrong!", GAME_OVER_MESSAGE = "Game Over!", EMPTY_STRING = "", ENTER_KEY = "Enter", SCORE_PREFIX = 'Score: ', LIFE_COLOR = "", LIFE_LOST_COLOR = "gray", KEY_DOWN_EVENT = "keydown"
 
 class GameState {
     constructor() {
@@ -24,7 +24,7 @@ class GameState {
     }
 
     isGameOver() {
-        return this.lives < GAME_OVER_VALUE
+        return this.lives < GAME_OVER_LIVES || this.count == GAME_OVER_COUNT
     }
 
     reset() {
@@ -87,6 +87,12 @@ class DOMElements {
             this.inputField.disabled = true
         }
     }
+
+    enableInput() {
+        if (this.inputField) {
+            this.inputField.disabled = false
+        }
+    }
 }
 
 class PokemonGame {
@@ -107,18 +113,29 @@ class PokemonGame {
         return currentPokemon.name === guess
     }
 
+    handleGameOver() {
+        if (this.gameState.isGameOver()) {
+            this.domElements.showResult(GAME_OVER_MESSAGE)
+            this.domElements.disableInput()
+            return true
+        }
+
+        return false
+    }
+
     handleCorrectGuess() {
         this.gameState.incrementScore()
         this.domElements.showResult(CORRECT_MESSAGE)
         this.domElements.updateScore(this.gameState.score)
+
+        return this.handleGameOver()
     }
 
     handleIncorrectGuess() {
         this.domElements.updateLives(this.gameState.lives)
         this.gameState.decrementLives()
 
-        if (this.gameState.isGameOver()) {
-            this.domElements.showResult(GAME_OVER_MESSAGE)
+        if (this.handleGameOver()) {
             return true
         }
 
@@ -132,12 +149,14 @@ class PokemonGame {
 
         this.domElements.updatePokemonImage(currentPokemon.img)
         this.gameState.incrementCount()
+        this.domElements.disableInput()
 
         setTimeout(() => {
             const nextPokemon = this.pokemons[this.gameState.count]
             if (nextPokemon) {
                 this.domElements.updatePokemonImage(nextPokemon.imgHidden)
             }
+            this.domElements.enableInput()
         }, REVEAL_TIMEOUT)
     }
 
@@ -149,7 +168,8 @@ class PokemonGame {
             const guess = this.domElements.inputField.value
 
             if (this.checkGuess(guess)) {
-                this.handleCorrectGuess()
+                const isGameOver = this.handleCorrectGuess()
+                if (isGameOver) return
             } else {
                 const isGameOver = this.handleIncorrectGuess()
                 if (isGameOver) return
