@@ -70,6 +70,12 @@ class DOMElements {
         }
     }
 
+    hideResult() {
+        if (this.resultText) {
+            this.resultText.hidden = true
+        }
+    }
+
     updatePokemonImage(imageUrl) {
         if (this.pokeImage) {
             this.pokeImage.src = imageUrl
@@ -93,6 +99,13 @@ class DOMElements {
             this.inputField.disabled = false
         }
     }
+
+    resetElements(score) {
+        this.enableInput()
+        this.clearInput()
+        this.hideResult()
+        this.updateScore(String(score))
+    }
 }
 
 class PokemonGame {
@@ -105,6 +118,7 @@ class PokemonGame {
 
     initializeGame() {
         this.addGuessEventListener()
+        this.addPlayAgainButtonEventListener()
     }
 
     checkGuess(guess) {
@@ -160,6 +174,11 @@ class PokemonGame {
         }, REVEAL_TIMEOUT)
     }
 
+    resetGame() {
+        this.gameState.reset()
+        this.domElements.resetElements(this.gameState.score)
+    }
+
     addGuessEventListener() {
         const handleGuess = (event) => {
             if (event.key !== ENTER_KEY) return
@@ -183,6 +202,13 @@ class PokemonGame {
             this.domElements.inputField.addEventListener(KEY_DOWN_EVENT, handleGuess)
         }
         
+    }
+
+    addPlayAgainButtonEventListener() {
+        this.domElements.playAgainButton.addEventListener("click", (event) => {
+            event.preventDefault()
+            this.resetGame()
+        })
     }
 }
 
