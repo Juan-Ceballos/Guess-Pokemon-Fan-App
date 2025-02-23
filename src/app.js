@@ -1,65 +1,66 @@
 import { pokemons } from "../data/pokemons.js"
 
-const REVEAL_TIMEOUT = 3000
-const INITIAL_LIVES = 2
+const REVEAL_TIMEOUT = 3000, INITIAL_LIVES = 2, INITIAL_COUNT = 0, INITIAL_SCORE = 0, COUNT_INCREMENT = 1, SCORE_INCREMENT = 1, LIFE_DECREMENT = 1, GAME_OVER_VALUE = 0
+const SELECTOR_LIVES = "lives", SELECTOR_GAME_IMAGE = "gameImage", SELECTOR_FORM = "form", SELECTOR_SCORE = ".score", SELECTOR_RESULT = "result", SELECTOR_PLAY_AGAIN = "#playAgain", SELECTOR_BUTTON = "button"
+const CORRECT_MESSAGE = "Correct!", WRONG_MESSAGE = "Wrong!", GAME_OVER_MESSAGE = "Game Over!", EMPTY_STRING = "", ENTER_KEY = "Enter", SCORE_PREFIX = 'Score: ', LIFE_LOST_COLOR = "gray", KEY_DOWN_EVENT = "keydown"
 
 class GameState {
     constructor() {
-        this.count = 0
-        this.score = 0
+        this.count = INITIAL_COUNT
+        this.score = INITIAL_SCORE
         this.lives = INITIAL_LIVES
     }
 
     incrementCount() {
-        this.count += 1
+        this.count += COUNT_INCREMENT
     }
 
     incrementScore() {
-        this.score += 1
+        this.score += SCORE_INCREMENT
     }
 
     decrementLives() {
-        this.lives -= 1
+        this.lives -= LIFE_DECREMENT
     }
 
     isGameOver() {
-        return this.lives < 0
+        return this.lives < GAME_OVER_VALUE
     }
 
     reset() {
-        this.count = 0
-        this.score = 0
+        this.count = INITIAL_COUNT
+        this.score = INITIAL_SCORE
         this.lives = INITIAL_LIVES
     }
 }
 
 class DOMElements {
     constructor() {
-        this.resultText = document.getElementById("result")
-        this.lifeElements = document.getElementById("lives")
-        this.playAgainButton = document.querySelector("button")
-        this.scoreElement = document.querySelector(".score").firstElementChild
-        this.pokeImage = document.getElementById("gameImage")
-        this.guessForm = document.querySelector("form")
+        this.resultText = document.getElementById(SELECTOR_RESULT)
+        this.lifeElements = document.getElementById(SELECTOR_LIVES)
+        this.playAgainButton = document.querySelector(SELECTOR_BUTTON)
+        this.scoreElement = document.querySelector(SELECTOR_SCORE).firstElementChild
+        this.pokeImage = document.getElementById(SELECTOR_GAME_IMAGE)
+        this.guessForm = document.querySelector(SELECTOR_FORM)
         this.inputField = this.guessForm?.firstElementChild
         
         this.initializeElements()
     }
 
     initializeElements() {
-        if (this.resultText) this.resultText = true
+        if (this.resultText) this.resultText.hidden = true
         if (this.playAgainButton) this.playAgainButton.disabled = true
     }
 
     updateScore(score) {
         if (this.scoreElement) {
-            this.scoreElement.innerText = String
+            this.scoreElement.innerText = `${SCORE_PREFIX}${String(score)}`
         }
     }
 
     updateLives(currentLives) {
         if (this.lifeElements?.children) {
-            this.lifeElements.children[currentLives].style.backgroundColor = 'gray'
+            this.lifeElements.children[currentLives].style.backgroundColor = LIFE_LOST_COLOR
         }
     }
 
@@ -78,7 +79,7 @@ class DOMElements {
 
     clearInput() {
         if (this.inputField) {
-            this.inputField.value = ""
+            this.inputField.value = EMPTY_STRING
         }
     }
 }
@@ -103,7 +104,7 @@ class PokemonGame {
 
     handleCorrectGuess() {
         this.gameState.incrementScore()
-        this.domElements.showResult("Correct!")
+        this.domElements.showResult(CORRECT_MESSAGE)
         this.domElements.updateScore(this.gameState.score)
     }
 
@@ -112,20 +113,20 @@ class PokemonGame {
         this.gameState.decrementLives()
 
         if (this.gameState.isGameOver()) {
-            this.domElements.showResult("Game Over!")
+            this.domElements.showResult(GAME_OVER_MESSAGE)
             return true
         }
 
-        this.DOMElements.showResult("Wrong!")
+        this.domElements.showResult(WRONG_MESSAGE)
         return false
     }
 
     updatePokemonDisplay() {
-        const currentPokemon = this.pokemon[this.gameState.count]
+        const currentPokemon = this.pokemons[this.gameState.count]
         if (!currentPokemon) return
 
         this.domElements.updatePokemonImage(currentPokemon.img)
-        this.gameState.incrementCount
+        this.gameState.incrementCount()
 
         setTimeout(() => {
             const nextPokemon = this.pokemons[this.gameState.count]
@@ -137,13 +138,13 @@ class PokemonGame {
 
     addGuessEventListener() {
         const handleGuess = (event) => {
-            if (event.key !== "Enter") return
+            if (event.key !== ENTER_KEY) return
 
             event.preventDefault()
             const guess = this.domElements.inputField.value
 
             if (this.checkGuess(guess)) {
-                this.handleCorrectGuess
+                this.handleCorrectGuess()
             } else {
                 const isGameOver = this.handleIncorrectGuess()
                 if (isGameOver) return
@@ -154,7 +155,7 @@ class PokemonGame {
         }
 
         if (this.domElements.inputField) {
-            this.domElements.inputField.addEventListener("keydown", handleGuess)
+            this.domElements.inputField.addEventListener(KEY_DOWN_EVENT, handleGuess)
         }
         
     }
