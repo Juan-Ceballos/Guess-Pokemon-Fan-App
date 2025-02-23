@@ -1,7 +1,7 @@
 import { pokemons } from "../data/pokemons.js"
 
 const REVEAL_TIMEOUT = 3000, INITIAL_LIVES = 2, INITIAL_COUNT = 0, INITIAL_SCORE = 0, COUNT_INCREMENT = 1, SCORE_INCREMENT = 1, LIFE_DECREMENT = 1, GAME_OVER_VALUE = 0
-const SELECTOR_LIVES = "lives", SELECTOR_GAME_IMAGE = "gameImage", SELECTOR_FORM = "form", SELECTOR_SCORE = ".score", SELECTOR_RESULT = "result", SELECTOR_PLAY_AGAIN = "#playAgain", SELECTOR_BUTTON = "button"
+const SELECTOR_LIVES = "lives", SELECTOR_GAME_IMAGE = "gameImage", SELECTOR_FORM = "form", SELECTOR_SCORE = ".score", SELECTOR_RESULT = "result", SELECTOR_PLAY_AGAIN = "#playAgain"
 const CORRECT_MESSAGE = "Correct!", WRONG_MESSAGE = "Wrong!", GAME_OVER_MESSAGE = "Game Over!", EMPTY_STRING = "", ENTER_KEY = "Enter", SCORE_PREFIX = 'Score: ', LIFE_LOST_COLOR = "gray", KEY_DOWN_EVENT = "keydown"
 
 class GameState {
@@ -38,7 +38,6 @@ class DOMElements {
     constructor() {
         this.resultText = document.getElementById(SELECTOR_RESULT)
         this.lifeElements = document.getElementById(SELECTOR_LIVES)
-        this.playAgainButton = document.querySelector(SELECTOR_BUTTON)
         this.scoreElement = document.querySelector(SELECTOR_SCORE).firstElementChild
         this.pokeImage = document.getElementById(SELECTOR_GAME_IMAGE)
         this.guessForm = document.querySelector(SELECTOR_FORM)
