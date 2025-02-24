@@ -63,6 +63,14 @@ class DOMElements {
         }
     }
 
+    resetLives() {
+        if (this.lifeElements?.children) {
+            for (let lifeElement of this.lifeElements.children) {
+                lifeElement.style.backgroundColor = "blue"
+            }
+        }
+    }
+
     showResult(message) {
         if (this.resultText) {
             this.resultText.textContent = message
@@ -100,11 +108,13 @@ class DOMElements {
         }
     }
 
-    resetElements(score) {
+    resetElements(score, imageUrl) {
         this.enableInput()
         this.clearInput()
         this.hideResult()
         this.updateScore(String(score))
+        this.updatePokemonImage(imageUrl)
+        this.resetLives()
     }
 }
 
@@ -176,7 +186,11 @@ class PokemonGame {
 
     resetGame() {
         this.gameState.reset()
-        this.domElements.resetElements(this.gameState.score)
+        const resetCount = this.gameState.count
+        const resetScore = this.gameState.score
+        const resetPokemon = pokemons[resetCount]
+        if (!resetPokemon) {return}
+        this.domElements.resetElements(resetScore, resetPokemon.imgHidden)
     }
 
     addGuessEventListener() {

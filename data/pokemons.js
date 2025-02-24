@@ -1,5 +1,5 @@
 export let pokemons = [
-    {name: "charmender", imgHidden: "../assets\charmenderHidden.jpg", img: "../assets/charmender.webp"},
+    {name: "charmender", imgHidden: "../assets/charmenderHidden.jpg", img: "../assets/charmender.webp"},
     {name: "pidgey", imgHidden:"../assets/pidgeyHidden.jpg", img: "../assets/pidgey.png"},
     {name: "dratini", imgHidden: "../assets/dratiniHidden.png", img: "../assets/dratini.png"},
     {name: "zapdos", imgHidden: "../assets/zapdosHidden.png", img: "../assets/zapdos.jpg"},
