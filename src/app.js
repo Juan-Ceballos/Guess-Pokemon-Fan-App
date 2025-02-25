@@ -134,7 +134,7 @@ class PokemonGame {
     checkGuess(guess) {
         const currentPokemon = this.pokemons[this.gameState.count]
         if (!currentPokemon) return false
-        return currentPokemon.name === guess
+        return currentPokemon.name === guess.toLowerCase()
     }
 
     handleGameOver() {
