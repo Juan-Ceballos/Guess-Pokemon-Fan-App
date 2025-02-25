@@ -2,7 +2,7 @@ import { pokemons } from "../data/pokemons.js"
 
 const REVEAL_TIMEOUT = 3000, INITIAL_LIVES = 2, INITIAL_COUNT = 0, INITIAL_SCORE = 0, COUNT_INCREMENT = 1, SCORE_INCREMENT = 1, LIFE_DECREMENT = 1, GAME_OVER_LIVES = 0, GAME_OVER_COUNT = 9
 const SELECTOR_LIVES = "lives", SELECTOR_GAME_IMAGE = "gameImage", SELECTOR_FORM = "form", SELECTOR_SCORE = ".score", SELECTOR_RESULT = "result", SELECTOR_PLAY_AGAIN = "button"
-const CORRECT_MESSAGE = "Correct!", WRONG_MESSAGE = "Wrong!", GAME_OVER_MESSAGE = "Game Over!", EMPTY_STRING = "", ENTER_KEY = "Enter", SCORE_PREFIX = 'Score: ', LIFE_COLOR = "", LIFE_LOST_COLOR = "gray", KEY_DOWN_EVENT = "keydown"
+const CORRECT_MESSAGE = "Correct!", WRONG_MESSAGE = "Wrong!", GAME_OVER_MESSAGE = "Game Over!", EMPTY_STRING = "", ENTER_KEY = "Enter", SCORE_PREFIX = 'Score: ', LIFE_COLOR = "blue", LIFE_LOST_COLOR = "gray", KEY_DOWN_EVENT = "keydown", CLICK_EVENT = "click"
 
 class GameState {
     constructor() {
@@ -66,7 +66,7 @@ class DOMElements {
     resetLives() {
         if (this.lifeElements?.children) {
             for (let lifeElement of this.lifeElements.children) {
-                lifeElement.style.backgroundColor = "blue"
+                lifeElement.style.backgroundColor = LIFE_COLOR
             }
         }
     }
@@ -224,7 +224,7 @@ class PokemonGame {
     }
 
     addPlayAgainButtonEventListener() {
-        this.domElements.playAgainButton.addEventListener("click", (event) => {
+        this.domElements.playAgainButton.addEventListener(CLICK_EVENT, (event) => {
             event.preventDefault()
             this.resetGame()
         })
@@ -232,81 +232,3 @@ class PokemonGame {
 }
 
 const game = new PokemonGame(pokemons)
-
-
-
-// console.log("hello")
-// let h1 = document.querySelector("h1")
-// console.log(h1.innerText)
-
-// let gameSpace = document.getElementById("result")
-// console.log(gameSpace.innerText)
-
-// let guessForm = document.querySelector("form")
-// let input = guessForm.firstElementChild
-
-// console.log(guessForm)
-// console.log(input)
-
-
-
-// let count = 0
-// let score = 0
-// let gameLives = 2
-// let resultText = document.getElementById("result")
-// resultText.hidden = true
-// let lifeElements = document.getElementById("lives")
-// let playAgainButton = document.querySelector("button")
-// playAgainButton.disabled = true
-// let scoreElement = document.querySelector(".score").firstElementChild
-// console.log(scoreElement)
-
-
-// function addFormEventListener() {
-//     let guessForm = document.querySelector("form")
-//     let inputField = guessForm.firstElementChild
-//     let pokeImage = document.getElementById("gameImage")
-//     inputField.addEventListener("keydown", function(event) {
-//         if (event.key === "Enter") {
-//             event.preventDefault()
-//             let enteredText = inputField.value
-//             if (pokemons[count].name === enteredText) {
-//                 // change image  
-//                 score += 1
-//                 console.log("guess right")
-//                 resultText.textContent = "Correct!"
-//                 resultText.hidden = false
-//                 scoreElement.innerText = String(score)
-//             } else {
-//                 if (gameLives === 0) {
-//                     lifeElements.children[gameLives].style.backgroundColor = 'gray'
-//                     console.log("game over")
-//                     resultText.textContent = "Game Over!"
-//                     resultText.hidden = false
-//                     return
-//                 } else {
-//                     console.log("guess wrong")
-//                     resultText.textContent = "Wrong!"
-//                     resultText.hidden = false
-//                     lifeElements.children[gameLives].style.backgroundColor = 'gray'
-//                     gameLives -= 1   
-//                 }      
-//             }
-//             pokeImage.src = pokemons[count].img
-//             if (count == pokemons.length - 1) {
-//                 resultText.textContent = "Game Over!"
-//                 return
-//             }
-//             count += 1
-            
-//             setTimeout(() => {
-//                 pokeImage.src = pokemons[count].imgHidden
-//             }, 3000)
-//             inputField.value = ""
-//         }
-//     })
-// }
-
-
-
-//addFormEventListener()
