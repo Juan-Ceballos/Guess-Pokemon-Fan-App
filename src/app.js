@@ -172,8 +172,13 @@ class PokemonGame {
         if (!currentPokemon) return
 
         this.domElements.updatePokemonImage(currentPokemon.img)
-        this.gameState.incrementCount()
         this.domElements.disableInput()
+
+        if (this.gameState.count === GAME_OVER_COUNT) {
+            return
+        }
+
+        this.gameState.incrementCount()
 
         setTimeout(() => {
             const nextPokemon = this.pokemons[this.gameState.count]
