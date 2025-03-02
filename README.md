@@ -8,7 +8,6 @@ This fun and interactive game challenges players to identify Pokemon based on th
 
 ![Main-Page-Sample](assets/main-page-app.png)
 
-
 ## Goals
 
 - Create an engaging Pokemon guessing game
